@@ -1,28 +1,15 @@
-const express = require("express");
-const router = express.Router();
+import sqlite3 from "sqlite3";
 
-function getTest(req, res) {
-  const query = `SELECT name FROM tracks WHERE trackid = 2`;
-
-  router.get("/", (req, res) => {
-    let db = new sqlLite.Database(path.resolve("chinook.db"), (err) => {
-      if (err) {
-        console.error(err.message);
-      }
-      console.log("Connected to the chinook database.");
-    });
-    db.get(query, (err, row) => {
-      db.close((err) => {
-        if (err) {
-          console.error(err.message);
-        }
-        console.log("Close the database connection.");
-      });
-      res.send(json(row));
-    });
-  });
+export function getTest(req, res) {
+  res.send("Yippie");
 }
 
-module.exports = {
-  getTest,
-};
+export function dbTest(req, res) {
+  const sql = `SELECT trackid FROM tracks ORDER BY trackid desc AND trackid LIMIT 2`;
+  const db = new sqlite3.Database("chinook.db", sqlite3.OPEN_READWRITE);
+  db.all(sql, async (err, rows) => {
+    console.log(rows);
+    res.send(rows);
+  });
+  db.close();
+}
