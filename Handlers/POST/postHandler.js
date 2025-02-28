@@ -1,6 +1,6 @@
-function test(req, res) {
+function postTest(req, res) {
   res.send("youve hit post");
 }
 module.exports = {
-  test,
+  postTest,
 };
