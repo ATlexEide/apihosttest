@@ -16,5 +16,5 @@ app.get("/db", dbTest);
 app.post("/test", postTest);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port localhost:${port}`);
+  console.log(`Example app listening on localhost:${port}`);
 });
