@@ -1,7 +1,7 @@
 import express from "express";
 
-import { getRoot, getLogin } from "./Handlers/GET/getHandler.js";
-import { login, addUser } from "./Handlers/POST/postHandler.js";
+import { getRoot, getLogin } from "./Handlers/getHandler.js";
+import { login, addUser } from "./Handlers/postHandler.js";
 
 const app = express();
 app.use(express.urlencoded());
