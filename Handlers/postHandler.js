@@ -21,19 +21,18 @@ export function addUser(req, res) {
   });
   db.close();
 }
+
 export function login(req, res) {
   console.log(req.body);
-  console.log("email: ", req.body.email.replace("@", "@"));
-  console.log("password: ", req.body.password);
-  const sql = `SELECT email FROM users WHERE email = ${req.body.email.replace(
-    "@",
-    "_@"
-  )}`;
+
+  const sql = `SELECT pw_hash FROM users WHERE email = "${req.body.email}"`;
   const db = new sqlite3.Database("conventionTest.db", sqlite3.OPEN_READWRITE);
   db.all(sql, async (err, rows) => {
     if (err) console.log(err);
-    console.log(rows);
-    res.send("Email exists");
+    console.log("provided pw: ", req.body.password);
+    console.log("actual pw: ", rows[0].pw_hash);
+    if (req.body.password !== rows[0].pw_hash) res.send("Access Denied");
+    if (req.body.password === rows[0].pw_hash) res.send("Access Granted");
   });
   db.close();
 }
