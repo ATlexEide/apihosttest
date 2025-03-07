@@ -1,4 +1,3 @@
-import sqlite3 from "sqlite3";
 import * as path from "path";
 
 export function getFile(req, res) {
