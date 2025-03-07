@@ -1,6 +1,6 @@
 import express from "express";
 
-import { getRoot, getLogin } from "./Handlers/getHandler.js";
+import { getFile } from "./Handlers/getHandler.js";
 import { login, addUser } from "./Handlers/postHandler.js";
 
 const app = express();
@@ -8,8 +8,9 @@ app.use(express.urlencoded());
 export const router = express.Router();
 const port = 5000;
 
-app.get("/", getRoot);
-app.get("/user/", getLogin);
+app.get("/", getFile);
+app.get("/login", getFile);
+app.get("/signup", getFile);
 
 app.post("/user/create", addUser);
 app.post("/user/login", login);
