@@ -9,15 +9,7 @@ export function getFile(req, res) {
   };
 
   const fileName = `${file}.html`;
-  const css = `style.css`;
   res.sendFile(fileName, options, function (err) {
-    if (err) {
-      console.error("Error sending file:", err);
-    } else {
-      console.log("Sent:", fileName);
-    }
-  });
-  res.sendFile(css, options, function (err) {
     if (err) {
       console.error("Error sending file:", err);
     } else {
