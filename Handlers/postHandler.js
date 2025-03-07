@@ -28,7 +28,7 @@ export function login(req, res) {
   const sql = `SELECT first_name, pw_hash FROM users WHERE email = "${req.body.email}"`;
   const db = new sqlite3.Database("conventionTest.db", sqlite3.OPEN_READWRITE);
   db.all(sql, async (err, rows) => {
-    if (err) console.log(err);
+    if (err) console.error(err);
     if (!rows.length) {
       res.send("NO ACCOUNT");
       return;
