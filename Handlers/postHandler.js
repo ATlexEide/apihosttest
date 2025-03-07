@@ -25,14 +25,23 @@ export function addUser(req, res) {
 export function login(req, res) {
   console.log(req.body);
 
-  const sql = `SELECT pw_hash FROM users WHERE email = "${req.body.email}"`;
+  const sql = `SELECT first_name, pw_hash FROM users WHERE email = "${req.body.email}"`;
   const db = new sqlite3.Database("conventionTest.db", sqlite3.OPEN_READWRITE);
   db.all(sql, async (err, rows) => {
     if (err) console.log(err);
-    console.log("provided pw: ", req.body.password);
-    console.log("actual pw: ", rows[0].pw_hash);
-    if (req.body.password !== rows[0].pw_hash) res.send("Access Denied");
-    if (req.body.password === rows[0].pw_hash) res.send("Access Granted");
+    if (!rows.length) {
+      res.send("NO ACCOUNT");
+      return;
+    }
+
+    if (req.body.password !== rows[0].pw_hash) {
+      console.log(rows[0].first_name, ": Access Denied");
+      res.send("ACCESS DENIED");
+    }
+    if (req.body.password === rows[0].pw_hash) {
+      console.log(rows[0].first_name, ": Access Granted");
+      res.send("ACCESS GRANTED");
+    }
   });
   db.close();
 }
