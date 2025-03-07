@@ -7,10 +7,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export function getRoot(req, res) {
+  console.log(__dirname);
   const options = {
-    root: path.join(__dirname),
+    root: path.resolve("./"),
   };
-  const fileName = "/index.html";
+
+  const fileName = "index.html";
   res.sendFile(fileName, options, function (err) {
     if (err) {
       console.error("Error sending file:", err);
